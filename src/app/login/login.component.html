@@ -1,0 +1,64 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-lg-4">
+      <div class="card shadow rounded-4">
+        <div class="card-body p-4">
+          <h3 class="text-center mb-4">Login</h3>
+          <form (ngSubmit)="onLogin()" #loginForm="ngForm">
+            <!-- Username -->
+            <div class="mb-3">
+              <label for="username" class="form-label">Username</label>
+              <input
+                type="text"
+                id="username"
+                name="username"
+                class="form-control"
+                [(ngModel)]="username"
+                required
+                #usernameField="ngModel"
+              />
+              <div *ngIf="usernameField.invalid && usernameField.touched" class="text-danger small">
+                Username is required
+              </div>
+            </div>
+
+            <!-- Password -->
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                class="form-control"
+                [(ngModel)]="password"
+                required
+                #passwordField="ngModel"
+              />
+              <div *ngIf="passwordField.invalid && passwordField.touched" class="text-danger small">
+                Password is required
+              </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="d-grid gap-2">
+              <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">
+                Login
+              </button>
+            </div>
+          </form>
+
+          <div class="text-center mt-3">
+            <a href="#" class="text-decoration-none small">Forgot Password?</a>
+          </div>
+
+          <hr class="my-3" />
+
+          <div class="text-center">
+            <small class="text-muted">Don't have an account?</small>
+            <a routerLink="/signup" class="text-decoration-none small">Sign Up</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
