@@ -1,0 +1,21 @@
+<div class="d-flex vh-100">
+  <!-- Sidebar -->
+  <nav class="bg-dark text-white p-3" style="width: 220px;">
+    <h5 class="mb-4">Navigation</h5>
+    <ul class="nav flex-column">
+      <li class="nav-item"><a class="nav-link text-white" routerLink="/notification">Notifications</a></li>
+      <li class="nav-item"><a class="nav-link text-white" routerLink="/forecast">Business Forecast</a></li>
+      <li class="nav-item"><a class="nav-link text-white" routerLink="/stocks">Stocks Inventory</a></li>
+      <li class="nav-item"><a class="nav-link text-white" routerLink="/budget">Budget</a></li>
+      <li class="nav-item"><a class="nav-link text-white" routerLink="/fund">Fundings</a></li>
+      <li class="nav-item"><a class="nav-link text-white" routerLink="/plan">Business Plan</a></li>
+      <li class="nav-item"><a class="nav-link text-white" routerLink="/learning">Learning</a></li>
+      <li class="nav-item"><a class="nav-link text-white" routerLink="/about">About Us</a></li>
+    </ul>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="flex-grow-1 p-4">
+    <router-outlet></router-outlet>
+  </div>
+</div>

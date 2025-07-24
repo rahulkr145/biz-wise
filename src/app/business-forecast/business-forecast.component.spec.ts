@@ -1,0 +1,23 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { BusinessForecastComponent } from './business-forecast.component';
+
+describe('BusinessForecastComponent', () => {
+  let component: BusinessForecastComponent;
+  let fixture: ComponentFixture<BusinessForecastComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      declarations: [BusinessForecastComponent]
+    })
+    .compileComponents();
+    
+    fixture = TestBed.createComponent(BusinessForecastComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});

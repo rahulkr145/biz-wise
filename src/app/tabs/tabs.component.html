@@ -1,0 +1,43 @@
+<div class="d-flex" style="min-height: 100vh;">
+  <!-- Sidebar -->
+  <div class="bg-dark text-white p-3" style="width: 220px; height: 100vh;">
+    <h4 class="mb-4">Navigation</h4>
+    <ul class="nav flex-column">
+      <li class="nav-item" *ngFor="let tab of ['forecast','fund','budget','notification','stocks','plan','learning','about']">
+        <button class="btn btn-link text-white text-start w-100" (click)="setTab(tab)">
+            Tab 1
+        </button>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Content Area -->
+  <div class="flex-grow-1 p-4" style="margin-left: 220px;">
+    <div *ngIf="activeTab === 'forecast'">
+      <app-business-forecast></app-business-forecast>
+    </div>
+    <div *ngIf="activeTab === 'fund'">
+      <app-fundings></app-fundings>
+    </div>
+    <div *ngIf="activeTab === 'tab3'">
+      <h2>Tab 3 Content</h2>
+      <p>This is the content for Tab 3.</p>
+    </div>
+    <div *ngIf="activeTab === 'tab4'">
+      <h2>Tab 4 Content</h2>
+      <p>This is the content for Tab 4.</p>
+    </div>
+    <div *ngIf="activeTab === 'tab5'">
+      <h2>Tab 5 Content</h2>
+      <p>This is the content for Tab 5.</p>
+    </div>
+    <div *ngIf="activeTab === 'tab6'">
+      <h2>Tab 6 Content</h2>
+      <p>This is the content for Tab 6.</p>
+    </div>
+    <div *ngIf="activeTab === 'tab7'">
+      <h2>Tab 7 Content</h2>
+      <p>This is the content for Tab 7.</p>
+    </div>
+  </div>
+</div>
