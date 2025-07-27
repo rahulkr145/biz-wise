@@ -1,1 +1,42 @@
-<p>business-forecast works!</p>
+<div class="container my-5">
+    <h2 class="mb-4 text-center">{{ dynamicHeader }}</h2>
+    <div class="carousel-container">
+      <div
+        class="carousel-slide"
+        *ngFor="let chart of chartList; let i = index"
+        [class.active]="i === activeIndex"
+      >
+        <div class="slide-content">
+          <div class="canvas-wrapper" style="max-width: 100%; margin: 0 auto; padding: 0;">
+            <ng-container [ngSwitch]="chart">
+              <div *ngSwitchCase="'multiAxisChart'">
+                <canvas #multiAxisChart></canvas>
+              </div>
+              <div *ngSwitchCase="'lineChart'">
+                <canvas #lineChart></canvas>
+              </div>
+              <div *ngSwitchCase="'doughnutChart'">
+                <canvas #doughnutChart></canvas>
+              </div>
+              <div *ngSwitchCase="'byItemBarChart'">
+                <canvas #byItemBarChart></canvas>
+              </div>
+            </ng-container>
+            <div class="dot-indicators-scroll-wrapper">
+              <div class="dot-indicators">
+                <span
+                  *ngFor="let chart of chartList; let i = index"
+                  class="dot"
+                  [class.active]="i === activeIndex"
+                  (click)="goToSlide(i)"
+                  (keydown.left)="goToSlide(i - 1)"
+                  (keydown.right)="goToSlide(i + 1)"
+                  style="width: 10px; height: 10px; min-width: 10px; min-height: 10px;"
+                ></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

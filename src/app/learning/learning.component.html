@@ -1,1 +1,49 @@
-<p>learning works!</p>
+<div class="container py-5">
+  <div class="row justify-content-center align-items-stretch g-4">
+    <div class="col-md-4" *ngFor="let card of learnings">
+      <div class="card h-100 shadow modal-detail-card" (click)="onCardClick(card.id)" style="cursor:pointer;">
+        <img [src]="card.thumbnail" [alt]="card.title" class="card-img-top p-4" style="height: 180px; object-fit: contain;">
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">{{ card.title }}</h5>
+          <h6 class="card-subtitle mb-2 text-muted">{{ card.shortDescription }}</h6>
+          <p class="card-text">{{ card.description }}</p>
+          <ul class="list-unstyled mb-3">
+            <li *ngFor="let learning of card.learnings">✔️ {{ learning }}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Show details below -->
+  <!-- Modal -->
+  <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content" *ngIf="selectedModuleDetails">
+        <div class="modal-header custom-modal-header">
+          <h5 class="modal-title" id="detailModalLabel">{{ selectedModuleDetails.title }}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+        </div>
+        <div class="modal-body p-0">
+          <div class="card border-0 shadow-lg m-0">
+            <img [src]="selectedModuleDetails.thumbnail"
+                 [alt]="selectedModuleDetails.title"
+                 class="card-img-top main-modal-thumbnail mb-3">
+            <div class="card-body">
+              <h5 class="card-title mb-2">{{ selectedModuleDetails.title }}</h5>
+              <p class="card-text text-muted mb-3">{{ selectedModuleDetails.description }}</p>
+              <ul class="list-group list-group-flush">
+                <li *ngFor="let resource of selectedModuleDetails.resources" class="list-group-item d-flex align-items-center">
+                  <img [src]="resource.thumbnail" width="32" height="32" class="me-2">
+                  <a [href]="resource.url" target="_blank" class="fw-bold me-2">{{ resource.label }}</a>
+                  <span class="badge bg-gradient bg-info text-dark text-uppercase ms-auto">{{ resource.type }}</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  

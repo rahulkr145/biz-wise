@@ -1,0 +1,188 @@
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background-image: url('https://img.freepik.com/free-vector/finance-stock-market-upward-green-growth-arrow-background_1017-42943.jpg?semt=ais_hybrid&w=740');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.card-container {
+    display: flex;
+    gap: 120px; // Further increased gap for more space between cards
+    justify-content: center;
+    padding: 20px;
+    flex-wrap: wrap;
+  }
+  .card {
+    width: 440px; // Increased width from 360px to 440px
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s;
+  }
+  .card:hover {
+    transform: translateY(-4px);
+  }
+  .card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+  }
+  .card-content {
+    padding: 20px;
+  }
+  .card-content h3 {
+    font-size: 20px;
+    margin: 0 0 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .badge {
+    font-size: 12px;
+    padding: 4px 8px;
+    border-radius: 8px;
+    font-weight: 500;
+  }
+  .badge-blue {
+    background-color: #e0e7ff;
+    color: #3b82f6;
+  }
+  .badge-green {
+    background-color: #d1fae5;
+    color: #10b981;
+  }
+  .card-content p {
+    margin: 0 0 12px;
+    font-size: 14px;
+    color: #444;
+  }
+  .card-content ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 12px;
+  }
+  .card-content ul li {
+    margin-bottom: 8px;
+    color: #111;
+    font-size: 14px;
+  }
+  .learn-more {
+    display: inline-block;
+    margin-bottom: 16px;
+    color: #2563eb;
+    font-weight: 500;
+    font-size: 14px;
+    text-decoration: none;
+  }
+  .learn-more:hover {
+    text-decoration: underline;
+  }
+  .btn {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  .btn-blue {
+    background-color: #2563eb;
+    color: white;
+  }
+  .btn-green {
+    background-color: #10b981;
+    color: white;
+  }
+
+.carousel-container {
+  position: relative;
+  width: 100%;
+  min-height: 720px; // Increased by 20% from 600px
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+}
+
+.card-group {
+  display: flex;
+  gap: 40px; // or your preferred spacing
+  margin-left: -20%; // Move cards 20% more to the left
+}
+
+.card {
+  width: 389px; // Reduced by 15% from 458px
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s;
+  margin: 0;
+  z-index: 1;
+}
+
+.card img {
+  width: 100%;
+  height: 216px; // Increased by 20% from 180px
+  object-fit: cover;
+}
+
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 2.2rem;
+  color: #2563eb;
+  background: #fff;
+  border: 2px solid #2563eb;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(37,99,235,0.10);
+  cursor: pointer;
+  user-select: none;
+  padding: 0;
+  transition: color 0.2s, background 0.2s, box-shadow 0.2s;
+  z-index: 2;
+}
+.carousel-arrow:hover:not(.disabled) {
+  background: #2563eb;
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(37,99,235,0.18);
+}
+.carousel-arrow.disabled {
+  color: #ccc;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+.carousel-arrow.left {
+  left: -80px;
+  margin-right: 32px;
+}
+.carousel-arrow.right {
+  right: -120px;
+}
+
+.btn-outline-primary:focus:not(:focus-visible) {
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.scrollable-cards {
+  max-height: 600px; // or whatever height you want
+  overflow-y: auto;
+  padding-right: 8px; // optional, for scrollbar space
+}

@@ -1,43 +1,36 @@
-<div class="d-flex" style="min-height: 100vh;">
+<div class="d-flex" [class.sidebar-collapsed]="isCollapsed" style="min-height: 100vh;">
   <!-- Sidebar -->
-  <div class="bg-dark text-white p-3" style="width: 220px; height: 100vh;">
-    <h4 class="mb-4">Navigation</h4>
+  <div class="sidebar bg-dark text-white p-3">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h4 class="mb-0" *ngIf="!isCollapsed">BizWise</h4>
+      <button class="btn btn-sm btn-outline-light" (click)="toggleSidebar()" title="Toggle Sidebar">
+        <i class="bi bi-list"></i> <!-- Three-line menu icon -->
+      </button>
+    </div>
+
     <ul class="nav flex-column">
-      <li class="nav-item" *ngFor="let tab of ['forecast','fund','budget','notification','stocks','plan','learning','about']">
-        <button class="btn btn-link text-white text-start w-100" (click)="setTab(tab)">
-            Tab 1
+      <li class="nav-item" *ngFor="let tab of tabs">
+        <button
+          class="btn text-start w-100 nav-link"
+          [class.active]="activeTab === tab.key"
+          (click)="setTab(tab.key)"
+        >
+          <i class="{{ tab.icon }} me-2"></i>
+          <span *ngIf="!isCollapsed">{{ tab.label }}</span>
         </button>
       </li>
     </ul>
   </div>
 
   <!-- Content Area -->
-  <div class="flex-grow-1 p-4" style="margin-left: 220px;">
-    <div *ngIf="activeTab === 'forecast'">
-      <app-business-forecast></app-business-forecast>
-    </div>
-    <div *ngIf="activeTab === 'fund'">
-      <app-fundings></app-fundings>
-    </div>
-    <div *ngIf="activeTab === 'tab3'">
-      <h2>Tab 3 Content</h2>
-      <p>This is the content for Tab 3.</p>
-    </div>
-    <div *ngIf="activeTab === 'tab4'">
-      <h2>Tab 4 Content</h2>
-      <p>This is the content for Tab 4.</p>
-    </div>
-    <div *ngIf="activeTab === 'tab5'">
-      <h2>Tab 5 Content</h2>
-      <p>This is the content for Tab 5.</p>
-    </div>
-    <div *ngIf="activeTab === 'tab6'">
-      <h2>Tab 6 Content</h2>
-      <p>This is the content for Tab 6.</p>
-    </div>
-    <div *ngIf="activeTab === 'tab7'">
-      <h2>Tab 7 Content</h2>
-      <p>This is the content for Tab 7.</p>
-    </div>
+  <div class="flex-grow-1 p-4 content-area">
+    <div *ngIf="activeTab === 'forecast'"><app-business-forecast></app-business-forecast></div>
+    <div *ngIf="activeTab === 'budget'"><app-budget></app-budget></div>
+    <div *ngIf="activeTab === 'stocks'"><app-stocks-inventory></app-stocks-inventory></div>
+    <div *ngIf="activeTab === 'notification'"><app-notifications></app-notifications></div>
+    <div *ngIf="activeTab === 'fund'"><app-fundings></app-fundings></div>
+    <div *ngIf="activeTab === 'plan'"><app-business-plan></app-business-plan></div>
+    <div *ngIf="activeTab === 'learning'"><app-learning></app-learning></div>
+    <div *ngIf="activeTab === 'about'"><app-about-us></app-about-us></div>
   </div>
 </div>

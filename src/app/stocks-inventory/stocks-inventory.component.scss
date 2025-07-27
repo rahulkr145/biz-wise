@@ -1,0 +1,228 @@
+.container-fluid {
+  max-width: 1400px;
+}
+
+// Card styling
+.card {
+  border: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  
+  .card-header {
+    border-bottom: 1px solid #e9ecef;
+    border-radius: 8px 8px 0 0 !important;
+  }
+  
+  .card-footer {
+    border-top: 1px solid #e9ecef;
+    border-radius: 0 0 8px 8px !important;
+  }
+}
+
+// Button styling
+.btn-toolbar {
+  gap: 0.5rem;
+}
+
+.btn {
+  border-radius: 6px;
+  font-weight: 500;
+  
+  i {
+    opacity: 0.8;
+  }
+}
+
+// AG Grid container and theme setup
+.ag-grid-container {
+  height: 600px;
+  width: 100%;
+}
+
+// AG Grid customizations
+.ag-theme-alpine {
+  border-radius: 0 0 8px 8px;
+  --ag-border-color: #e9ecef;
+  --ag-header-background-color: #f8f9fa;
+  --ag-header-foreground-color: #495057;
+  --ag-odd-row-background-color: #ffffff;
+  --ag-even-row-background-color: #f8f9fa;
+  --ag-row-hover-color: rgba(0, 123, 255, 0.1);
+  --ag-selected-row-background-color: rgba(0, 123, 255, 0.2);
+  
+  .ag-header {
+    border-bottom: 2px solid #dee2e6;
+    font-weight: 600;
+  }
+  
+  .ag-header-cell-label {
+    font-weight: 600;
+    color: #495057;
+  }
+  
+  // Income row styling
+  .ag-row.income-row {
+    background-color: rgba(40, 167, 69, 0.1) !important;
+    
+    &:hover {
+      background-color: rgba(40, 167, 69, 0.15) !important;
+    }
+    
+    &.ag-row-selected {
+      background-color: rgba(40, 167, 69, 0.2) !important;
+    }
+  }
+  
+  // Expense row styling
+  .ag-row.expense-row {
+    background-color: rgba(220, 53, 69, 0.1) !important;
+    
+    &:hover {
+      background-color: rgba(220, 53, 69, 0.15) !important;
+    }
+    
+    &.ag-row-selected {
+      background-color: rgba(220, 53, 69, 0.2) !important;
+    }
+  }
+  
+  // Cell styling
+  .ag-cell {
+    border-right: 1px solid #e9ecef;
+    display: flex;
+    align-items: center;
+    
+    &:focus {
+      border: 2px solid #007bff !important;
+      border-radius: 4px;
+    }
+  }
+  
+  // Editable cell indicator
+  .ag-cell-edit-input {
+    border: 2px solid #007bff;
+    border-radius: 4px;
+    padding: 4px 8px;
+  }
+}
+
+// File input styling
+.form-control[type="file"] {
+  border: 2px dashed #dee2e6;
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    border-color: #007bff;
+    background-color: rgba(0, 123, 255, 0.05);
+  }
+  
+  &:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    background-color: rgba(0, 123, 255, 0.05);
+  }
+}
+
+// Alert styling
+.alert {
+  border: none;
+  border-radius: 8px;
+  
+  &.alert-info {
+    background-color: rgba(13, 202, 240, 0.1);
+    border-left: 4px solid #0dcaf0;
+    color: #055160;
+  }
+}
+
+// Badge styling
+.badge {
+  font-size: 0.75rem;
+  padding: 0.5rem 0.8rem;
+  border-radius: 6px;
+}
+
+// Empty state styling
+.text-center {
+  .fa-file-excel {
+    color: #6c757d;
+    margin-bottom: 1rem;
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .btn-toolbar {
+    flex-direction: column;
+    
+    .btn-group {
+      margin-bottom: 0.5rem;
+      
+      .btn {
+        margin-bottom: 0.25rem;
+      }
+    }
+  }
+  
+  .ag-theme-alpine {
+    height: 500px !important;
+  }
+  
+  .card-header {
+    .d-flex {
+      flex-direction: column;
+      align-items: flex-start !important;
+      
+      .badge {
+        margin-top: 0.5rem;
+      }
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .container-fluid {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+  }
+  
+  .ag-theme-alpine {
+    height: 400px !important;
+  }
+}
+
+// Loading and transition effects
+.fade-in {
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Print styles
+@media print {
+  .btn-toolbar,
+  .card-header,
+  .card-footer {
+    display: none !important;
+  }
+  
+  .ag-theme-alpine {
+    height: auto !important;
+  }
+}

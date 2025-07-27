@@ -1,1 +1,60 @@
-<p>notifications works!</p>
+<div class="container-fluid py-4 notification-center-container">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h4>Notifications</h4>
+    <button class="btn btn-link mark-all-btn no-underline" (click)="markAllAsRead()">
+      <i class="bi bi-check2-all"></i> Mark all as read
+    </button>
+  </div>
+
+  <!-- Tabs -->
+  <ul class="nav nav-tabs mb-4">
+    <li class="nav-item" *ngFor="let tab of ['All', 'App', 'Inventory', 'Budget']">
+      <a class="nav-link d-flex align-items-center"
+         [ngClass]="{
+           'tab-all': tab === 'All',
+           'tab-app': tab === 'App',
+           'tab-inventory': tab === 'Inventory',
+           'tab-budget': tab === 'Budget',
+           'active': selectedTab === tab
+         }"
+         (click)="selectedTab = tab"
+         href="javascript:void(0)">
+        <span [ngSwitch]="tab" class="me-2">
+          <i *ngSwitchCase="'App'" class="bi bi-bell"></i>
+          <i *ngSwitchCase="'Inventory'" class="bi bi-box-seam"></i>
+          <i *ngSwitchCase="'Budget'" class="bi bi-cash-stack"></i>
+          <i *ngSwitchDefault class="bi bi-list"></i>
+        </span>
+        {{ tab }}
+        <span *ngIf="getUnreadCount(tab) > 0" class="badge bg-danger ms-2">{{ getUnreadCount(tab) }}</span>
+      </a>
+    </li>
+  </ul>
+
+  <!-- Notification List -->
+  <div *ngFor="let note of filteredNotifications; let i = index" class="notification-card border-start mb-3 position-relative fade-in" [ngClass]="{
+      'border-primary': note.category === 'App',
+      'border-warning': note.category === 'Inventory',
+      'border-danger': note.category === 'Budget'
+    }">
+    <div class="d-flex align-items-center justify-content-between">
+      <div class="d-flex align-items-center">
+        <span class="me-2">
+          <i [ngClass]="{
+            'bi bi-bell text-primary': note.category === 'App',
+            'bi bi-box-seam text-warning': note.category === 'Inventory',
+            'bi bi-cash-stack text-danger': note.category === 'Budget',
+            'bi bi-info-circle': !note.category
+          }"></i>
+        </span>
+        <div class="fw-bold">{{ note.title }}</div>
+      </div>
+      <button class="btn btn-sm btn-light dismiss-btn" (click)="dismissNotification(i)" title="Dismiss"><i class="bi bi-x"></i></button>
+    </div>
+    <div>{{ note.message }}</div>
+    <small class="text-muted">{{ note.time }} · <a href="#">{{ note.linkText }}</a></small>
+    <span *ngIf="note.unread"
+          class="position-absolute top-0 end-0 translate-middle p-1 bg-primary border border-light rounded-circle unread-dot"
+          title="Unread"></span>
+  </div>
+</div>

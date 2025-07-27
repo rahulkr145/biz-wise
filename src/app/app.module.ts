@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -16,6 +17,12 @@ import { BusinessPlanComponent } from './business-plan/business-plan.component';
 import { LearningComponent } from './learning/learning.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { TabsComponent } from './tabs/tabs.component';
+import { HttpClientModule } from '@angular/common/http';
+import { AgGridModule } from 'ag-grid-angular';
+
+
+
+
 
 @NgModule({
   declarations: [
@@ -37,7 +44,10 @@ import { TabsComponent } from './tabs/tabs.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    AgGridModule
   ],
   providers: [],
   bootstrap: [AppComponent]

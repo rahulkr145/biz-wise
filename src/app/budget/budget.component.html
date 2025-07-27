@@ -1,1 +1,113 @@
-<p>budget works!</p>
+<div class="container my-4 p-3 border rounded shadow-sm bg-white">
+  <h4 class="text-uppercase bg-dark text-white p-2 mb-3 text-center">Grocery Budget Template</h4>
+  <div class="d-flex justify-content-between mb-4 fw-bold align-items-center" style="background: #f6f7f9; padding: 0.25rem 0.5rem;">
+    <select class="form-select form-select-sm w-auto me-3" [(ngModel)]="selectedMonth" (change)="onMonthChange(selectedMonth)">
+      <option *ngFor="let month of months" [value]="month">{{ month }}</option>
+    </select>
+    <div class="btn-group" role="group" aria-label="Budget actions" style="padding: 6px;">
+      <button class="btn btn-info btn-sm me-2 rounded-pill" (click)="insight()">Insight</button>
+      <button class="btn btn-success btn-sm me-2 rounded-pill" (click)="save()" [disabled]="!thresholdChanged">Save</button>
+      <button class="btn btn-success btn-sm rounded-pill" (click)="exportBudget()">Export to Excel</button>
+    </div>
+  </div>
+
+  <table class="table table-bordered table-sm">
+    <thead class="table-success text-center">
+      <tr>
+        <th>Expense Item</th>
+        <th>Quantity</th>
+        <th>Actual ($)</th>
+        <th>Forecast ($)</th>
+        <th>Threshold ($)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let section of budgetData; let sectionIdx = index">
+        <tr class="bg-success text-white">
+          <td colspan="5" class="fw-bold">{{ section.category }}</td>
+        </tr>
+        <tr *ngFor="let item of section.items; let itemIdx = index">
+          <td>{{ item.name }}</td>
+          <td class="text-center">{{ item.quantity }}</td>
+          <td class="text-center">{{ item.actual.toFixed(2) }}</td>
+          <td class="text-center" [ngClass]="">
+            {{ item.forecast.toFixed(2) }}
+            <ng-container *ngIf="item.forecast > item.threshold">
+              <span style="color: #dc3545; font-size: 1.1em; margin-left: 4px; vertical-align: middle;">&#9650;</span>
+            </ng-container>
+            <ng-container *ngIf="item.forecast <= item.threshold">
+              <span style="color: #198754; font-size: 1.1em; margin-left: 4px; vertical-align: middle;">&#9660;</span>
+            </ng-container>
+          </td>
+          <td class="text-center">
+            <ng-container *ngIf="editing?.sectionIdx === sectionIdx && editing?.itemIdx === itemIdx; else showThreshold">
+              <input type="number"
+                     [value]="item.threshold"
+                     #thresholdInput
+                     (blur)="saveEdit(sectionIdx, itemIdx, thresholdInput.value)"
+                     (keydown.enter)="saveEdit(sectionIdx, itemIdx, thresholdInput.value)"
+                     style="width: 70px; text-align: right;" autofocus>
+            </ng-container>
+            <ng-template #showThreshold>
+                <span (click)="startEdit(sectionIdx, itemIdx)"
+                      title="Edit threshold"
+                      style="display: inline-block; min-width: 60px; padding: 2px 8px; border: 1px solid #ced4da; border-radius: 6px; background: #f8f9fa; cursor: pointer; text-align: right; transition: box-shadow 0.2s; box-shadow: 0 1px 2px rgba(0,0,0,0.03);">
+                  {{ item.threshold.toFixed(2) }}
+                </span>
+            </ng-template>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+</div>
+
+<!-- Toast Notification -->
+<div *ngIf="showToast" class="position-fixed top-0 end-0 p-3" style="z-index: 1055;">
+  <div style="min-width: 150px; background: linear-gradient(90deg, #e9fce9 0%, #b6eac7 100%); border-radius: 0.6rem; box-shadow: 0 2px 8px rgba(40,167,69,0.10); display: flex; align-items: center; padding: 0.35rem 0.7rem;">
+    <span class="me-1 d-flex align-items-center justify-content-center" style="font-size: 1rem; color: #28a745;">
+      <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.97 11.03a.75.75 0 0 0 1.07 0l3.992-3.992a.75.75 0 1 0-1.06-1.06L7.5 9.439 6.03 7.97a.75.75 0 1 0-1.06 1.06l1.999 2z"/>
+      </svg>
+    </span>
+    <div class="flex-grow-1">
+      <div style="font-size: 0.82rem; font-weight: 600; color: #155724; letter-spacing: 0.01em;">Threshold Limit Set Successfully</div>
+    </div>
+    <button type="button" class="btn-close ms-1" (click)="showToast = false" aria-label="Close" style="scale: 0.7;"></button>
+  </div>
+</div>
+
+<!-- Insight Popup Modal -->
+<div *ngIf="showInsightPopup" class="modal-backdrop">
+  <div class="modal-content" style="max-width: 400px; margin: 5% auto;">
+    <div class="modal-header">
+      <h5 class="modal-title">Budget Insights</h5>
+      <button type="button" class="btn-close" (click)="closeInsightPopup()"></button>
+    </div>
+    <div class="modal-body text-center position-relative">
+      <div *ngIf="isInsightLoading" class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center bg-white bg-opacity-75" style="z-index: 10;">
+        <div class="text-center">
+          <div class="spinner-border text-primary mb-3" style="width: 2.5rem; height: 2.5rem;" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <div class="fw-bold text-dark fs-6">Loading insights...</div>
+        </div>
+      </div>
+      <ng-container *ngIf="!isInsightLoading">
+        <canvas #insightPieChart style="max-width: 300px; margin: 0 auto;"></canvas>
+        <ul class="text-start mt-4">
+          <li *ngFor="let point of insightPoints">{{ point }}</li>
+        </ul>
+        <div *ngIf="insightRecommendations.length > 0" class="alert alert-info mt-3 p-2">
+          <strong>Recommendations:</strong>
+          <ul class="mb-0">
+            <li *ngFor="let rec of insightRecommendations">{{ rec }}</li>
+          </ul>
+        </div>
+      </ng-container>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" (click)="closeInsightPopup()">Close</button>
+    </div>
+  </div>
+</div>

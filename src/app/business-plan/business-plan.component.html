@@ -1,1 +1,73 @@
-<p>business-plan works!</p>
+<div class="container my-5 p-4 border rounded shadow bg-light">
+    <h3 class="text-center mb-4">Business Plan Form</h3>
+    <form [formGroup]="businessForm" (ngSubmit)="onSubmit()">
+  
+      <div class="mb-3">
+        <label class="form-label">Business Name</label>
+        <input type="text" class="form-control" formControlName="business_name" placeholder="Enter business name">
+      </div>
+  
+      <div class="mb-3">
+        <label class="form-label">Industry</label>
+        <input type="text" class="form-control" formControlName="industry" placeholder="E.g. Retail, Tech, Healthcare">
+      </div>
+  
+      <div class="mb-3">
+        <label class="form-label">Location</label>
+        <input type="text" class="form-control" formControlName="location" placeholder="Optional">
+      </div>
+  
+      <div class="mb-3">
+        <label class="form-label">Business Size</label>
+        <select class="form-select" formControlName="business_size">
+          <option value="small">Small</option>
+          <option value="medium">Medium</option>
+          <option value="large">Large</option>
+        </select>
+      </div>
+  
+      <div class="mb-3">
+        <label class="form-label">Goals</label>
+        <div formArrayName="goals">
+          <div *ngFor="let goal of goals.controls; let i = index" class="input-group mb-2">
+            <input type="text" class="form-control" [formControlName]="i" placeholder="Goal {{ i + 1 }}">
+          </div>
+        </div>
+        <button class="btn btn-sm btn-outline-primary" type="button" (click)="addGoal()">+ Add Goal</button>
+      </div>
+  
+      <div class="mb-3">
+        <label class="form-label">Current Challenges (Optional)</label>
+        <div formArrayName="current_challenges">
+          <div *ngFor="let challenge of current_challenges.controls; let j = index" class="input-group mb-2">
+            <input type="text" class="form-control" [formControlName]="j" placeholder="Challenge {{ j + 1 }}">
+          </div>
+        </div>
+        <button class="btn btn-sm btn-outline-secondary" type="button" (click)="addChallenge()">+ Add Challenge</button>
+      </div>
+  
+      <div class="text-center">
+        <button type="submit" class="btn btn-success px-5">Submit Plan</button>
+      </div>
+    </form>
+  </div>
+  
+<!-- Popup Modal -->
+<div *ngIf="showPopup" class="modal-backdrop">
+  <div class="modal-content">
+    <div class="modal-body">
+      <p>{{ apiResponse }}</p>
+      <button class="btn btn-primary" (click)="closePopup()">Close</button>
+    </div>
+  </div>
+</div>
+  
+<div *ngIf="isLoading" class="position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center bg-dark bg-opacity-50" style="z-index: 1050;">
+  <div class="text-center">
+    <div class="spinner-border text-primary mb-3" style="width: 3rem; height: 3rem;" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <div class="fw-bold text-white fs-5">Generating your business plan...</div>
+  </div>
+</div>
+  

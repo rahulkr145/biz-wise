@@ -1,0 +1,78 @@
+.carousel-container {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  margin: auto;
+  max-height: 80vh;
+  overflow-y: auto;
+  padding-bottom: 60px;
+}
+
+.carousel-slide {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  min-height: 400px;
+}
+
+.carousel-slide.active {
+  display: flex;
+}
+
+.slide-content {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+canvas {
+  width: 100% !important;
+  max-width: 600px;
+  height: 400px !important;
+  max-height: 80vh;
+  display: block;
+  margin: 0 auto;
+}
+
+.canvas-wrapper {
+  max-width: 600px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.dot-indicators-scroll-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  position: static;
+  background: white;
+  z-index: 10;
+  padding: 12px 0;
+  box-shadow: 0 -2px 8px rgba(0,0,0,0.05);
+  margin: 0 auto;
+}
+
+.dot-indicators {
+  display: flex;
+  margin-top: 60px;
+  justify-content: center;
+  align-items: center;
+  min-width: 100%;
+  gap: 12px;
+}
+
+.dot {
+  height: 16px;
+  width: 16px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  cursor: pointer;
+  transition: background 0.3s;
+  flex: 0 0 auto;
+}
+
+.dot.active {
+  background-color: #007bff;
+}

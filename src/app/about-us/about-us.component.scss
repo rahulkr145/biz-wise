@@ -1,0 +1,8 @@
+.row.text-center .col-md-4 > div {
+    transition: opacity 0.3s ease;
+  }
+
+  .row.text-center .col-md-4 > div:hover {
+    opacity: 0.85;
+    cursor: pointer;
+  }
